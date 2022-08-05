@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CategoryList from '../components/CategoryList';
-import { getCategories } from '../services/api';
 import { Link } from 'react-router-dom';
+import { getCategories } from '../services/api';
+import CategoryList from '../components/CategoryList';
 
 export default class Home extends Component {
   state = {
