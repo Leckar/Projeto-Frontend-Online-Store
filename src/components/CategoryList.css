@@ -28,7 +28,7 @@
   justify-content: center;
   text-align: center;
   transition: width 150ms ease-in-out;
-  width: 120%;
+  width: 100%;
 }
 
 .categoriesList button h4 {
@@ -37,7 +37,7 @@
 }
 
 .categoriesList button:hover {
-  width: 135%;
+  width: 115%;
 }
 
 ::-webkit-scrollbar {
