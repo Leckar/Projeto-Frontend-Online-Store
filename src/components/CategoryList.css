@@ -1,4 +1,8 @@
 .categoriesList {
+  align-items: center;
+  background-color: #2c2f33;
+  border-radius: 10px;
+  color: white;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -8,32 +12,27 @@
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 35px;
-  background-color: #2c2f33;
   text-align: center;
-  align-items: center;
-  color: white;
-  border-radius: 10px;
 }
 
 .categoriesList h3 {
   color: white;
-  font-family: Courier-New, Courier, monospace;
+  font-family: Courier-New , Courier , monospace;
 }
 
 .categoriesList button {
   background-color: #7e67ae;
-  display: flex;
   border-radius: 8px;
-  justify-content: center;
   color: white;
+  display: flex;
+  justify-content: center;
   text-align: center;
   transition: width 150ms ease-in-out;
   width: 120%;
 }
 
 .categoriesList button h4 {
-  font-family: Lucida-Sans , Lucida-Sans-Regular , Lucida-Grande ,
-    Lucida-Sans-Unicode , Geneva , Verdana , sans-serif;
+  font-family: Lucida-Sans , Verdana , sans-serif;
   white-space: nowrap;
 }
 
