@@ -34,7 +34,6 @@ export default class Home extends Component {
   }
 
   categoriesCall = async (name) => {
-    console.log(name);
     const productListobj = await getProductsFromCategoryAndQuery(name);
     this.setState({ productList: productListobj.results, render: true });
   }
