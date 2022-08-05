@@ -9,7 +9,10 @@ export default class CategoryList extends Component {
       <aside>
         <h3>Categorias: </h3>
         {categoriesList.map((category) => (
-          <CategoryItem key={ category.id } name={ category.name } />
+          <CategoryItem
+            key={ category.id }
+            name={ category.name }
+          />
         ))}
       </aside>
     );
@@ -17,5 +20,5 @@ export default class CategoryList extends Component {
 }
 
 CategoryList.propTypes = {
-  categoriesList: PropTypes.shape().isRequired,
+  categoriesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
