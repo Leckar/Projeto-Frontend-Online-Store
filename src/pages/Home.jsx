@@ -14,6 +14,7 @@ export default class Home extends Component {
   componentDidMount() {
     this.setState(async () => {
       const categories = await getCategories();
+
       this.setState({ categories });
     });
   }
