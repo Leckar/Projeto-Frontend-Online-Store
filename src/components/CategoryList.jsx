@@ -22,7 +22,6 @@ export default class CategoryList extends Component {
 }
 
 CategoryList.propTypes = {
-  categoriesList: PropTypes.shape().isRequired,
   catergoriesCall: PropTypes.func.isRequired,
   categoriesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };

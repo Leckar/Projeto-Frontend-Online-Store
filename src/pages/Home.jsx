@@ -5,7 +5,6 @@ import CategoryList from '../components/CategoryList';
 import ProductsRender from '../components/ProductsRender';
 import ProductsList from '../components/ProductsList';
 
-
 export default class Home extends Component {
   state = {
     searchQuery: '',
@@ -23,23 +22,6 @@ export default class Home extends Component {
     });
   }
 
-  categoriesCall = async (name) => {
-    console.log(name);
-    const productListobj = await getProductsFromCategoryAndQuery(name);
-    this.setState({ productList: productListobj.results, render: true });
-  }
-
-  render() {
-    const { categories, productList, render } = this.state;
-    return (
-      <div>
-        <span data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </span>
-        <CategoryList
-          categoriesList={ categories }
-          catergoriesCall={ this.categoriesCall }
-        />
   onChangeHandler = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   }
@@ -51,8 +33,14 @@ export default class Home extends Component {
     this.setState({ products });
   }
 
+  categoriesCall = async (name) => {
+    console.log(name);
+    const productListobj = await getProductsFromCategoryAndQuery(name);
+    this.setState({ productList: productListobj.results, render: true });
+  }
+
   render() {
-    const { categories, searchQuery, products } = this.state;
+    const { categories, searchQuery, products, productList, render } = this.state;
 
     return (
       <div>
@@ -83,7 +71,10 @@ export default class Home extends Component {
 
         <ProductsList products={ products } />
 
-        <CategoryList categoriesList={ categories } />
+        <CategoryList
+          categoriesList={ categories }
+          catergoriesCall={ this.categoriesCall }
+        />
 
         <Link
           to="/cart"
