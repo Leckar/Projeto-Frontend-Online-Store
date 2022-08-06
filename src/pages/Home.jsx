@@ -1,45 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import {
+  getCategories,
+  getProductsFromCategoryAndQuery,
+} from '../services/api';
 import CategoryList from '../components/CategoryList';
-import ProductsRender from '../components/ProductsRender';
 import ProductsList from '../components/ProductsList';
 
 export default class Home extends Component {
   state = {
     searchQuery: '',
     categories: [],
-    productList: [],
-    render: false,
     products: [],
-  }
+    render: false,
+  };
 
   componentDidMount() {
     this.setState(async () => {
       const categories = await getCategories();
-
-      this.setState({ categories });
+      this.setState({ categories, render: false });
     });
   }
 
   onChangeHandler = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   onSearchButtonClick = async () => {
     const { searchQuery } = this.state;
-    const { results: products } = await getProductsFromCategoryAndQuery('', searchQuery);
+    const { results: products } = await getProductsFromCategoryAndQuery(
+      '',
+      searchQuery,
+    );
 
-    this.setState({ products });
-  }
+    this.setState({ products, render: true });
+  };
 
-  categoriesCall = async (name) => {
-    const productListobj = await getProductsFromCategoryAndQuery(name);
-    this.setState({ productList: productListobj.results, render: true });
-  }
+  categoriesCall = async (categoryName) => {
+    const { results: products } = await getProductsFromCategoryAndQuery(
+      categoryName,
+      '',
+    );
+    this.setState({ products, render: true });
+  };
 
   render() {
-    const { categories, searchQuery, products, productList, render } = this.state;
+    const { categories, searchQuery, products, render } = this.state;
 
     return (
       <div>
@@ -60,31 +66,22 @@ export default class Home extends Component {
           </button>
         </div>
 
-        {
-          !searchQuery.length && (
-            <span data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </span>
-          )
-        }
-
-        <ProductsList products={ products } />
+        {!searchQuery.length && (
+          <span data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </span>
+        )}
 
         <CategoryList
           categoriesList={ categories }
           catergoriesCall={ this.categoriesCall }
         />
 
-        <Link
-          to="/cart"
-          data-testid="shopping-cart-button"
-        >
+        {render && <ProductsList products={ products } />}
+
+        <Link to="/cart" data-testid="shopping-cart-button">
           <button type="submit">Carrinho</button>
         </Link>
-        <div>
-          { render && <ProductsRender productList={ productList } /> }
-        </div>
-
       </div>
     );
   }
