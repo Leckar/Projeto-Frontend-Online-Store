@@ -36,9 +36,9 @@ export default class Home extends Component {
     this.setState({ products, render: true });
   };
 
-  categoriesCall = async (categoryName) => {
+  categoriesCall = async (categoryId) => {
     const { results: products } = await getProductsFromCategoryAndQuery(
-      categoryName,
+      categoryId,
       '',
     );
     this.setState({ products, render: true });
@@ -74,7 +74,7 @@ export default class Home extends Component {
 
         <CategoryList
           categoriesList={ categories }
-          catergoriesCall={ this.categoriesCall }
+          categoriesCall={ this.categoriesCall }
         />
 
         {render && <ProductsList products={ products } />}

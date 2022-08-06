@@ -5,15 +5,16 @@ import './CategoryList.css';
 
 export default class CategoryList extends Component {
   render() {
-    const { categoriesList, catergoriesCall } = this.props;
+    const { categoriesList, categoriesCall } = this.props;
     return (
       <aside className="categoriesList">
         <h3>Categorias: </h3>
         {categoriesList.map((category) => (
           <CategoryItem
             key={ category.id }
+            id={ category.id }
             name={ category.name }
-            categoriesFunc={ catergoriesCall }
+            categoriesFunc={ categoriesCall }
           />
         ))}
       </aside>
@@ -22,6 +23,6 @@ export default class CategoryList extends Component {
 }
 
 CategoryList.propTypes = {
-  catergoriesCall: PropTypes.func.isRequired,
+  categoriesCall: PropTypes.func.isRequired,
   categoriesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
