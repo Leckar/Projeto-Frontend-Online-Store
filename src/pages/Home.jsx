@@ -13,6 +13,7 @@ export default class Home extends Component {
     categories: [],
     products: [],
     render: false,
+    cartList: [],
   };
 
   componentDidMount() {
@@ -43,6 +44,21 @@ export default class Home extends Component {
     );
     this.setState({ products, render: true });
   };
+
+  addToCartButtonClick = (target) => {
+    const { key } = target;
+    const { products, cartList } = this.state;
+    const isInCart = cartList.some(({ id }) => id === key);
+    if (isInCart) {
+      cartList.forEach((i) => {
+        if (i.id === key) {
+          i.cartAmount += 1;
+        }
+      });
+    }
+    const newCartItem = products.find(({ id }) => id === key);
+    this.setState((prev) => ({ cartList: [...prev, { ...newCartItem, cartAmount: 1 }] }));
+  }
 
   render() {
     const { categories, searchQuery, products, render } = this.state;
@@ -77,7 +93,10 @@ export default class Home extends Component {
           categoriesCall={ this.categoriesCall }
         />
 
-        {render && <ProductsList products={ products } />}
+        {render && <ProductsList
+          products={ products }
+          addToCart={ this.addToCartButtonClick }
+        />}
 
         <Link to="/cart" data-testid="shopping-cart-button">
           <button type="submit">Carrinho</button>

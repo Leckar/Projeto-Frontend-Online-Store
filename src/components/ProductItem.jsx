@@ -8,6 +8,7 @@ export default class ProductItem extends Component {
         title,
         price,
         thumbnail,
+        addToCart,
       },
     } = this.props;
 
@@ -23,7 +24,13 @@ export default class ProductItem extends Component {
           <span>R$</span>
           <span>{ price }</span>
         </div>
-        <button type="button">Adicionar ao Carrinho</button>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ ({ target }) => addToCart(target) }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
@@ -31,4 +38,5 @@ export default class ProductItem extends Component {
 
 ProductItem.propTypes = {
   productDetails: PropTypes.shape().isRequired,
+  addToCart: PropTypes.func.isRequired,
 };

@@ -4,7 +4,7 @@ import ProductItem from './ProductItem';
 
 export default class ProductsList extends Component {
   render() {
-    const { products } = this.props;
+    const { products, addToCart } = this.props;
 
     if (!products.length) return 'Nenhum produto foi encontrado';
 
@@ -13,6 +13,7 @@ export default class ProductsList extends Component {
         { products.map((product) => (
           <ProductItem
             key={ product.id }
+            addToCart={ addToCart }
             productDetails={ product }
           />
         )) }
@@ -23,4 +24,5 @@ export default class ProductsList extends Component {
 
 ProductsList.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
