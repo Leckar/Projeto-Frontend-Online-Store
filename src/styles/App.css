@@ -4,6 +4,15 @@ body {
   margin: 1vw;
 }
 
+.mainTitle {
+  background-color: #7e67ae;
+  border-radius: 10px;
+  left: 1vw;
+  margin-top: 0.5vh;
+  padding: 8px;
+  position: absolute;
+}
+
 .mainHome {
   display: flex;
   flex-direction: column;
@@ -30,6 +39,7 @@ header button {
 
 header a button {
   align-items: center;
+  color: #202225;
   display: flex;
   font-size: 20px;
   justify-content: center;

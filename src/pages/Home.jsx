@@ -76,6 +76,7 @@ export default class Home extends Component {
     return (
       <div className="mainHome">
         <header>
+          <h1 className="mainTitle">Front-End Online Store</h1>
           <input
             type="text"
             className="searchInput"
