@@ -23,6 +23,7 @@ export default class ProductItem extends Component {
           <span>R$</span>
           <span>{ price }</span>
         </div>
+        <button type="button">Adicionar ao Carrinho</button>
       </div>
     );
   }
