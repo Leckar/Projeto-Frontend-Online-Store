@@ -11,7 +11,7 @@
   max-width: 15vw;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: 35px;
+  padding: 25px;
   text-align: center;
 }
 
@@ -28,7 +28,7 @@
   justify-content: center;
   text-align: center;
   transition: width 150ms ease-in-out;
-  width: 100%;
+  width: 200px;
 }
 
 .categoriesList button h4 {
@@ -37,7 +37,7 @@
 }
 
 .categoriesList button:hover {
-  width: 115%;
+  width: 220px;
 }
 
 ::-webkit-scrollbar {
