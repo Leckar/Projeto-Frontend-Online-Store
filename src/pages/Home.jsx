@@ -6,6 +6,7 @@ import {
 } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
+import { saveState, loadState } from '../services/LocalStorageHandler';
 
 export default class Home extends Component {
   state = {
@@ -19,7 +20,8 @@ export default class Home extends Component {
   componentDidMount() {
     this.setState(async () => {
       const categories = await getCategories();
-      this.setState({ categories, render: false });
+      const cartList = loadState();
+      this.setState({ categories, render: false, cartList });
     });
   }
 
@@ -45,28 +47,28 @@ export default class Home extends Component {
     this.setState({ products, render: true });
   };
 
-  addToCartButtonClick = (target) => {
+  addToCartButtonClick = ({ target }) => {
     const { name } = target;
     const { products, cartList } = this.state;
-    console.log(products);
     const isInCart = cartList.some(({ id }) => id === name);
-    console.log(isInCart);
     if (isInCart) {
       const copy = cartList.find(({ id }) => id === name);
       copy.cartAmount += 1;
       const other = cartList.filter(({ id }) => id !== name);
-      return this.setState({ cartList: [...other, copy] });
+      return this.setState({ cartList: [...other, copy] }, () => {
+        saveState(cartList);
+      });
     }
     const newCartItem = products.find(({ id }) => id === name);
-    console.log(newCartItem);
     this.setState((prev) => ({
       cartList: [...prev.cartList, { ...newCartItem, cartAmount: 1 }],
-    }));
+    }), () => {
+      saveState(cartList);
+    });
   }
 
   render() {
     const { categories, searchQuery, products, render } = this.state;
-
     return (
       <div>
         <div>
@@ -98,12 +100,18 @@ export default class Home extends Component {
         />
 
         {render && <ProductsList
+          cart={ false }
           products={ products }
-          addToCart={ this.addToCartButtonClick }
+          cartButton={ this.addToCartButtonClick }
         />}
 
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <button type="submit">Carrinho</button>
+        <Link
+          to={ {
+            pathname: '/cart',
+          } }
+          data-testid="shopping-cart-button"
+        >
+          Carrinho
         </Link>
       </div>
     );
