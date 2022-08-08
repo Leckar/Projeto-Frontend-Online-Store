@@ -6,7 +6,7 @@ export default class ProductsList extends Component {
   render() {
     const { products, addToCart } = this.props;
 
-    if (!products.length) return 'Nenhum produto foi encontrado';
+    if (!products.length) return <h2>Nenhum produto foi encontrado</h2>;
 
     return (
       <div>

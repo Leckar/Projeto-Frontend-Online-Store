@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CategoryItem from './CategoryItem';
-import './CategoryList.css';
+import '../styles/CategoryList.css';
 
 export default class CategoryList extends Component {
   render() {
