@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import {
+  getCategories,
+  getProductsFromCategoryAndQuery,
+} from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
 
@@ -9,29 +12,40 @@ export default class Home extends Component {
     searchQuery: '',
     categories: [],
     products: [],
-  }
+    render: false,
+  };
 
   componentDidMount() {
     this.setState(async () => {
       const categories = await getCategories();
-
-      this.setState({ categories });
+      this.setState({ categories, render: false });
     });
   }
 
   onChangeHandler = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   onSearchButtonClick = async () => {
     const { searchQuery } = this.state;
-    const { results: products } = await getProductsFromCategoryAndQuery('', searchQuery);
+    const { results: products } = await getProductsFromCategoryAndQuery(
+      '',
+      searchQuery,
+    );
 
-    this.setState({ products });
-  }
+    this.setState({ products, render: true });
+  };
+
+  categoriesCall = async (categoryId) => {
+    const { results: products } = await getProductsFromCategoryAndQuery(
+      categoryId,
+      '',
+    );
+    this.setState({ products, render: true });
+  };
 
   render() {
-    const { categories, searchQuery, products } = this.state;
+    const { categories, searchQuery, products, render } = this.state;
 
     return (
       <div>
@@ -52,22 +66,20 @@ export default class Home extends Component {
           </button>
         </div>
 
-        {
-          !searchQuery.length && (
-            <span data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </span>
-          )
-        }
+        {!searchQuery.length && (
+          <span data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </span>
+        )}
 
-        <ProductsList products={ products } />
+        <CategoryList
+          categoriesList={ categories }
+          categoriesCall={ this.categoriesCall }
+        />
 
-        <CategoryList categoriesList={ categories } />
+        {render && <ProductsList products={ products } />}
 
-        <Link
-          to="/cart"
-          data-testid="shopping-cart-button"
-        >
+        <Link to="/cart" data-testid="shopping-cart-button">
           <button type="submit">Carrinho</button>
         </Link>
       </div>
