@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductsList from '../components/ProductsList';
-import { saveState, loadState } from '../services/LocalStorageHandler';
+import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 
 export default class Cart extends Component {
   state ={
@@ -10,7 +10,7 @@ export default class Cart extends Component {
   }
 
   componentDidMount() {
-    const cartList = loadState();
+    const cartList = loadLocalState();
     this.setState({ cartList });
   }
 
@@ -22,12 +22,12 @@ export default class Cart extends Component {
       copy.cartAmount -= 1;
       const other = cartList.filter(({ id }) => id !== name);
       return this.setState({ cartList: [...other, copy] }, () => {
-        saveState(cartList);
+        saveLocalState([...other, copy]);
       });
     }
     const other = cartList.filter(({ id }) => id !== name);
     this.setState({ cartList: [...other] }, () => {
-      saveState(cartList);
+      saveLocalState([...other]);
     });
   }
 
@@ -36,7 +36,9 @@ export default class Cart extends Component {
     return (
       <div>
 
-        { cartList.length === 0 ? (<h2>Nenhum produto foi encontrado</h2>) : (
+        { !cartList || !cartList.length ? (
+          <h2>Nenhum produto foi encontrado</h2>
+        ) : (
           <ProductsList
             cart
             products={ cartList }

@@ -19,8 +19,18 @@ export default class ProductsList extends Component {
               <img src={ product.thumbnail } alt={ product.title } />
             </figure>
             <div>
-              <h1>{ product.title }</h1>
+              { cart ? (
+                <h1 data-testid="shopping-cart-product-name">{ product.title }</h1>
+              ) : (
+                <h1>{ product.title }</h1>
+              ) }
             </div>
+            { cart && (
+              <div
+                data-testid="shopping-cart-product-quantity"
+              >
+                { product.cartAmount }
+              </div>) }
             <div>
               <span>R$</span>
               <span>{ product.price }</span>

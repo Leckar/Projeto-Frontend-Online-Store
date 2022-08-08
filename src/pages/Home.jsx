@@ -6,7 +6,8 @@ import {
 } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
-import { saveState, loadState } from '../services/LocalStorageHandler';
+import { saveLocalState, loadLocalState } from '../services/StorageHandler';
+// saveSessionState, loadSessionState
 
 export default class Home extends Component {
   state = {
@@ -20,7 +21,9 @@ export default class Home extends Component {
   componentDidMount() {
     this.setState(async () => {
       const categories = await getCategories();
-      const cartList = loadState();
+      const cartList = loadLocalState();
+      // const products = loadSessionState();
+      // if (products.length > 0) this.setState({ products });
       this.setState({ categories, render: false, cartList });
     });
   }
@@ -35,7 +38,7 @@ export default class Home extends Component {
       '',
       searchQuery,
     );
-
+    // saveSessionState(products);
     this.setState({ products, render: true });
   };
 
@@ -44,6 +47,7 @@ export default class Home extends Component {
       categoryId,
       '',
     );
+    // saveSessionState(products);
     this.setState({ products, render: true });
   };
 
@@ -56,14 +60,14 @@ export default class Home extends Component {
       copy.cartAmount += 1;
       const other = cartList.filter(({ id }) => id !== name);
       return this.setState({ cartList: [...other, copy] }, () => {
-        saveState(cartList);
+        saveLocalState(cartList);
       });
     }
     const newCartItem = products.find(({ id }) => id === name);
     this.setState((prev) => ({
       cartList: [...prev.cartList, { ...newCartItem, cartAmount: 1 }],
     }), () => {
-      saveState(cartList);
+      saveLocalState(cartList);
     });
   }
 
