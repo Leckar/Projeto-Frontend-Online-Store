@@ -14,23 +14,20 @@ export default class ProductItem extends Component {
     } = this.props;
 
     return (
-      <Link
-        to={ `/product/${title}` }
-        data-testid="product-detail-link"
-      >
-        <div data-testid="product">
+      <div data-testid="product">
+        {/* <Link to={ `/product/${title}` } data-testid="product-detail-link"> */}
           <figure>
             <img src={ thumbnail } alt={ title } />
           </figure>
           <div>
             <h1>{title}</h1>
           </div>
-          <div>
-            <span>R$</span>
-            <span>{price}</span>
-          </div>
+        {/* </Link> */}
+        <div>
+          <span>R$</span>
+          <span>{price}</span>
         </div>
-      </Link>
+      </div>
     );
   }
 }
