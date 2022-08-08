@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ProductItem from './ProductItem';
+// import ProductItem from './ProductItem';
 
 export default class ProductsList extends Component {
   render() {
@@ -11,11 +11,29 @@ export default class ProductsList extends Component {
     return (
       <div>
         { products.map((product) => (
-          <ProductItem
+          <div
             key={ product.id }
-            addToCart={ addToCart }
-            productDetails={ product }
-          />
+            data-testid="product"
+          >
+            <figure>
+              <img src={ product.thumbnail } alt={ product.title } />
+            </figure>
+            <div>
+              <h1>{ product.title }</h1>
+            </div>
+            <div>
+              <span>R$</span>
+              <span>{ product.price }</span>
+            </div>
+            <button
+              type="button"
+              name={ product.id }
+              data-testid="product-add-to-cart"
+              onClick={ ({ target }) => addToCart(target) }
+            >
+              Adicionar ao Carrinho
+            </button>
+          </div>
         )) }
       </div>
     );

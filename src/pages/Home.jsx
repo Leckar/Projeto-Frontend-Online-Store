@@ -46,18 +46,22 @@ export default class Home extends Component {
   };
 
   addToCartButtonClick = (target) => {
-    const { key } = target;
+    const { name } = target;
     const { products, cartList } = this.state;
-    const isInCart = cartList.some(({ id }) => id === key);
+    console.log(products);
+    const isInCart = cartList.some(({ id }) => id === name);
+    console.log(isInCart);
     if (isInCart) {
-      cartList.forEach((i) => {
-        if (i.id === key) {
-          i.cartAmount += 1;
-        }
-      });
+      const copy = cartList.find(({ id }) => id === name);
+      copy.cartAmount += 1;
+      const other = cartList.filter(({ id }) => id !== name);
+      return this.setState({ cartList: [...other, copy] });
     }
-    const newCartItem = products.find(({ id }) => id === key);
-    this.setState((prev) => ({ cartList: [...prev, { ...newCartItem, cartAmount: 1 }] }));
+    const newCartItem = products.find(({ id }) => id === name);
+    console.log(newCartItem);
+    this.setState((prev) => ({
+      cartList: [...prev.cartList, { ...newCartItem, cartAmount: 1 }],
+    }));
   }
 
   render() {
