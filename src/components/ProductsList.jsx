@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ProductItem from './ProductItem';
+import '../styles/ProductsList.css';
 
 export default class ProductsList extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class ProductsList extends Component {
     if (!products.length) return <h2>Nenhum produto foi encontrado</h2>;
 
     return (
-      <div>
+      <div className="productsList">
         { products.map((product) => (
           <div
             key={ product.id }

@@ -74,10 +74,11 @@ export default class Home extends Component {
   render() {
     const { categories, searchQuery, products, render } = this.state;
     return (
-      <div>
-        <div>
+      <div className="mainHome">
+        <header>
           <input
             type="text"
+            className="searchInput"
             data-testid="query-input"
             name="searchQuery"
             value={ searchQuery }
@@ -88,14 +89,18 @@ export default class Home extends Component {
             data-testid="query-button"
             onClick={ this.onSearchButtonClick }
           >
-            Buscar
+            <i className="fa fa-search" />
           </button>
-        </div>
-
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <button type="button">
+              <i className="fa fa-shopping-cart" />
+            </button>
+          </Link>
+        </header>
         {!searchQuery.length && (
-          <span data-testid="home-initial-message">
+          <h2 className="initialMsg" data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
-          </span>
+          </h2>
         )}
 
         <CategoryList
@@ -108,15 +113,6 @@ export default class Home extends Component {
           products={ products }
           cartButton={ this.addToCartButtonClick }
         />}
-
-        <Link
-          to={ {
-            pathname: '/cart',
-          } }
-          data-testid="shopping-cart-button"
-        >
-          Carrinho
-        </Link>
       </div>
     );
   }
