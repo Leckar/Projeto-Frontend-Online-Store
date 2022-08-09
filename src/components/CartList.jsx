@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CartItem from './CartItem';
-// import '../styles/CartList.css';
 
 export default class CartList extends Component {
   render() {

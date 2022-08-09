@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import '../styles/CartItem.css';
 
 export default class CartItem extends Component {
   render() {
