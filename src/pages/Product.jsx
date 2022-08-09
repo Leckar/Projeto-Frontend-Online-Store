@@ -31,6 +31,7 @@ export default class Product extends Component {
 
     return (
       <div data-testid="product">
+        {/* <h1 className="mainTitle">Front-End Online Store</h1> */}
         <figure>
           <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
         </figure>
