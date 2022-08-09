@@ -1,0 +1,59 @@
+body {
+  background-color: #34363b;
+  color: white;
+  margin: 1vw;
+}
+
+.mainTitle {
+  background-color: #7e67ae;
+  border-radius: 10px;
+  left: 1vw;
+  margin-top: 0.5vh;
+  padding: 8px;
+  position: absolute;
+}
+
+.mainHome {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  margin: auto;
+}
+
+header .searchInput {
+  border-radius: 5px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+header button {
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+header a button {
+  align-items: center;
+  color: #202225;
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  position: absolute;
+  right: 1vw;
+  top: 2vh;
+}
+
+.initialMsg {
+  text-align: center;
+}
+
+.mainContent {
+  display: flex;
+  gap: 5vw;
+  margin-top: 10px;
+}

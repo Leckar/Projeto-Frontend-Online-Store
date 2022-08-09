@@ -18,7 +18,7 @@ export default class Product extends Component {
     const { match } = this.props;
     const { id } = match.params;
     const { results } = await getProductsFromCategoryAndQuery('', id);
-    const item = results.filter((product) => product.title === id);
+    const item = results.filter((product) => product.id === id);
     this.setState({
       title: item[0].title,
       price: item[0].price,

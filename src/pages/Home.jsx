@@ -6,6 +6,8 @@ import {
 } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
+import { saveLocalState, loadLocalState } from '../services/StorageHandler';
+// saveSessionState, loadSessionState
 
 export default class Home extends Component {
   state = {
@@ -13,12 +15,16 @@ export default class Home extends Component {
     categories: [],
     products: [],
     render: false,
+    cartList: [],
   };
 
   componentDidMount() {
     this.setState(async () => {
       const categories = await getCategories();
-      this.setState({ categories, render: false });
+      const cartList = loadLocalState();
+      // const products = loadSessionState();
+      // if (products.length > 0) this.setState({ products });
+      this.setState({ categories, cartList });
     });
   }
 
@@ -32,7 +38,7 @@ export default class Home extends Component {
       '',
       searchQuery,
     );
-
+    // saveSessionState(products);
     this.setState({ products, render: true });
   };
 
@@ -41,17 +47,50 @@ export default class Home extends Component {
       categoryId,
       '',
     );
+    // saveSessionState(products);
     this.setState({ products, render: true });
   };
 
+  saveCartListInLocalStorage = () => {
+    const { cartList } = this.state;
+    saveLocalState(cartList);
+  }
+
+  handleAddCartItemAmount = (productId, cartList) => {
+    const productIdsList = cartList.map(({ id }) => id);
+    const productInIdsList = productIdsList.indexOf(productId);
+    cartList.at(productInIdsList).cartAmount += 1;
+
+    this.setState({ cartList }, this.saveCartListInLocalStorage);
+  }
+
+  handleAddCartItem = (productId, cartList) => {
+    const { products } = this.state;
+    const newCartItem = products.find(({ id }) => id === productId);
+    cartList.push({ ...newCartItem, cartAmount: 1 });
+
+    this.setState({ cartList }, this.saveCartListInLocalStorage);
+  }
+
+  handleAddToCart = ({ target }) => {
+    const { cartList: prevCartList } = this.state;
+    const cartList = [...prevCartList];
+    const productId = target.getAttribute('data-productid');
+    const isInCart = cartList.some(({ id }) => id === productId);
+
+    if (isInCart) this.handleAddCartItemAmount(productId, cartList);
+    else this.handleAddCartItem(productId, cartList);
+  }
+
   render() {
     const { categories, searchQuery, products, render } = this.state;
-
     return (
-      <div>
-        <div>
+      <div className="mainHome">
+        <header>
+          <h1 className="mainTitle">Front-End Online Store</h1>
           <input
             type="text"
+            className="searchInput"
             data-testid="query-input"
             name="searchQuery"
             value={ searchQuery }
@@ -62,26 +101,31 @@ export default class Home extends Component {
             data-testid="query-button"
             onClick={ this.onSearchButtonClick }
           >
-            Buscar
+            <i className="fa fa-search" />
           </button>
-        </div>
-
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <button type="button">
+              <i className="fa fa-shopping-cart" />
+            </button>
+          </Link>
+        </header>
         {!searchQuery.length && (
-          <span data-testid="home-initial-message">
+          <h2 className="initialMsg" data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
-          </span>
+          </h2>
         )}
-
-        <CategoryList
-          categoriesList={ categories }
-          categoriesCall={ this.categoriesCall }
-        />
-
-        {render && <ProductsList products={ products } />}
-
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <button type="submit">Carrinho</button>
-        </Link>
+        <div className="mainContent">
+          <CategoryList
+            categoriesList={ categories }
+            categoriesCall={ this.categoriesCall }
+          />
+          {render
+            && <ProductsList
+              products={ products }
+              cartButton={ this.handleAddToCart }
+              cart={ false }
+            />}
+        </div>
       </div>
     );
   }
