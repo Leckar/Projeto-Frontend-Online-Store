@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductFromId } from '../services/api';
 
 export default class Product extends Component {
   state = {
@@ -11,19 +11,18 @@ export default class Product extends Component {
   }
 
   componentDidMount() {
-    this.itemClick();
+    this.loadProductInfo();
   }
 
-  itemClick = async () => {
-    const { match } = this.props;
-    const { id } = match.params;
-    const { results } = await getProductsFromCategoryAndQuery('', id);
-    const item = results.filter((product) => product.id === id);
-    this.setState({
-      title: item[0].title,
-      price: item[0].price,
-      thumbnail: item[0].thumbnail,
-    });
+  loadProductInfo = async () => {
+    const { match: { params: { id } } } = this.props;
+    const {
+      title,
+      price,
+      thumbnail,
+    } = await getProductFromId(id);
+
+    this.setState({ title, price, thumbnail });
   };
 
   render() {
@@ -58,7 +57,7 @@ export default class Product extends Component {
 Product.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.node,
+      id: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
