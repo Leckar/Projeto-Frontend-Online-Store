@@ -103,17 +103,18 @@ export default class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h2>
         )}
-
-        <CategoryList
-          categoriesList={ categories }
-          categoriesCall={ this.categoriesCall }
-        />
-
-        {render && <ProductsList
-          cart={ false }
-          products={ products }
-          cartButton={ this.addToCartButtonClick }
-        />}
+        <div className="mainContent">
+          <CategoryList
+            categoriesList={ categories }
+            categoriesCall={ this.categoriesCall }
+          />
+          {render
+            && <ProductsList
+              products={ products }
+              cartButton={ this.addToCartButtonClick }
+              // cart={  }
+            />}
+        </div>
       </div>
     );
   }

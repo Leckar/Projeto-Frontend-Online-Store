@@ -11,3 +11,26 @@
   padding: 1vw;
   width: 70vw;
 }
+
+.productWrap {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.productsList button {
+  background-color: #7e67ae;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 5px 5px #0f1012;
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  text-align: start;
+  transition: 300ms ease-in-out;
+}
+
+.productsList button:hover {
+  font-size: 14.5px;
+}

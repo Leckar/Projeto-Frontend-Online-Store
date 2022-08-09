@@ -2,6 +2,7 @@
   align-items: center;
   background-color: #18191c;
   border-radius: 10px;
+  box-shadow: 0 5px 5px #0f1012;
   display: flex;
   flex-direction: column;
   height: 60vh;
@@ -12,6 +13,8 @@
 
 .product img {
   border-radius: 5px;
+  height: 90px;
+  transition: 100ms ease-in-out;
 }
 
 .product img:hover {

@@ -13,6 +13,7 @@ export default class ProductsList extends Component {
       <div className="productsList">
         { products.map((product) => (
           <div
+            className="productWrap"
             key={ product.id }
           >
             <ProductItem
