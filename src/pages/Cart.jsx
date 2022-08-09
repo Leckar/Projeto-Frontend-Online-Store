@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ProductsList from '../components/ProductsList';
+import CartList from '../components/CartList';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 
+const attribute = 'data-productid';
 export default class Cart extends Component {
   state ={
     cartList: [],
@@ -36,11 +37,32 @@ export default class Cart extends Component {
   handleSubtractFromCart = ({ target }) => {
     const { cartList: prevCartList } = this.state;
     const cartList = [...prevCartList];
-    const productId = target.getAttribute('data-productid');
+    const productId = target.getAttribute(attribute);
     const { cartAmount } = cartList.find(({ id }) => id === productId);
-
     if (cartAmount > 1) this.handleSubCartItemAmount(productId, cartList);
-    else this.handleSubCartItem(productId, cartList);
+  }
+
+  removeFromCart = ({ target }) => {
+    const { cartList: prevCartList } = this.state;
+    const cartList = [...prevCartList];
+    const productId = target.getAttribute(attribute);
+    this.handleSubCartItem(productId, cartList);
+  }
+
+  handleAddCartItemAmount = (productId, cartList) => {
+    const productIdsList = cartList.map(({ id }) => id);
+    const productInIdsList = productIdsList.indexOf(productId);
+    cartList.at(productInIdsList).cartAmount += 1;
+
+    this.setState({ cartList }, this.saveCartListInLocalStorage);
+  }
+
+  handleAddToCart = ({ target }) => {
+    const { cartList: prevCartList } = this.state;
+    const cartList = [...prevCartList];
+    const productId = target.getAttribute(attribute);
+    const isInCart = cartList.some(({ id }) => id === productId);
+    if (isInCart) this.handleAddCartItemAmount(productId, cartList);
   }
 
   render() {
@@ -51,10 +73,12 @@ export default class Cart extends Component {
         { !cartList || !cartList.length ? (
           <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>
         ) : (
-          <ProductsList
+          <CartList
             cart
             products={ cartList }
-            cartButton={ this.handleSubtractFromCart }
+            removeFromCart={ this.removeFromCart }
+            addOne={ this.handleAddToCart }
+            removeOne={ this.handleSubtractFromCart }
           />
         )}
         <Link

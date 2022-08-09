@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  getCategories,
-  getProductsFromCategoryAndQuery,
-} from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
-// saveSessionState, loadSessionState
 
 export default class Home extends Component {
   state = {
@@ -24,8 +20,6 @@ export default class Home extends Component {
       const { storageKey } = this.state;
       const categories = await getCategories();
       const cartList = loadLocalState(storageKey);
-      // const products = loadSessionState();
-      // if (products.length > 0) this.setState({ products });
       this.setState({ categories, cartList });
     });
   }
@@ -40,7 +34,6 @@ export default class Home extends Component {
       '',
       searchQuery,
     );
-    // saveSessionState(products);
     this.setState({ products, render: true });
   };
 
@@ -49,7 +42,6 @@ export default class Home extends Component {
       categoryId,
       '',
     );
-    // saveSessionState(products);
     this.setState({ products, render: true });
   };
 
@@ -125,7 +117,6 @@ export default class Home extends Component {
             && <ProductsList
               products={ products }
               cartButton={ this.handleAddToCart }
-              cart={ false }
             />}
         </div>
       </div>
