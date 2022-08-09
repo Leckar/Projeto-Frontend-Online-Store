@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
+import '../styles/ProductItem.css';
 
 export default class ProductItem extends Component {
   render() {
@@ -14,20 +15,25 @@ export default class ProductItem extends Component {
     } = this.props;
 
     return (
-      <div data-testid="product">
-        {/* <Link to={ `/product/${title}` } data-testid="product-detail-link"> */}
+      // <Link
+      //   to={ `/product/${title}` }
+      //   data-testid="product-detail-link"
+      // >
+      <div className="product" data-testid="product">
         <figure>
           <img src={ thumbnail } alt={ title } />
         </figure>
+        <hr />
         <div>
-          <h1>{title}</h1>
+          <h4>{title}</h4>
         </div>
-        {/* </Link> */}
+        <hr />
         <div>
           <span>R$</span>
           <span>{price}</span>
         </div>
       </div>
+      // </Link>
     );
   }
 }
