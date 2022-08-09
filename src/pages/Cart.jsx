@@ -74,14 +74,13 @@ export default class Cart extends Component {
           <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>
         ) : (
           <div className="cartWrap">
-          <CartList
-            cart
-            products={ cartList }
-            removeFromCart={ this.removeFromCart }
-            addOne={ this.handleAddToCart }
-            removeOne={ this.handleSubtractFromCart }
-          />
-          </div>
+            <CartList
+              cart
+              products={ cartList }
+              removeFromCart={ this.removeFromCart }
+              addOne={ this.handleAddToCart }
+              removeOne={ this.handleSubtractFromCart }
+            />
             <Link
               to={ {
                 pathname: '/checkout',
@@ -90,6 +89,7 @@ export default class Cart extends Component {
             >
               Finalizar compra
             </Link>
+          </div>
         )}
         <Link
           to={ {
