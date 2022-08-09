@@ -37,7 +37,7 @@ export default class Cart extends Component {
       <div>
 
         { !cartList || !cartList.length ? (
-          <h2>Nenhum produto foi encontrado</h2>
+          <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>
         ) : (
           <ProductsList
             cart

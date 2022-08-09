@@ -13,7 +13,6 @@ export default class ProductsList extends Component {
         { products.map((product) => (
           <div
             key={ product.id }
-            data-testid="product"
           >
             <ProductItem
               productDetails={ product }
