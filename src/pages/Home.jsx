@@ -24,7 +24,7 @@ export default class Home extends Component {
       const cartList = loadLocalState();
       // const products = loadSessionState();
       // if (products.length > 0) this.setState({ products });
-      this.setState({ categories, render: false, cartList });
+      this.setState({ categories, cartList });
     });
   }
 
@@ -51,24 +51,35 @@ export default class Home extends Component {
     this.setState({ products, render: true });
   };
 
-  addToCartButtonClick = ({ target }) => {
-    const { name } = target;
-    const { products, cartList } = this.state;
-    const isInCart = cartList.some(({ id }) => id === name);
-    if (isInCart) {
-      const copy = cartList.find(({ id }) => id === name);
-      copy.cartAmount += 1;
-      const other = cartList.filter(({ id }) => id !== name);
-      return this.setState({ cartList: [...other, copy] }, () => {
-        saveLocalState(cartList);
-      });
-    }
-    const newCartItem = products.find(({ id }) => id === name);
-    this.setState((prev) => ({
-      cartList: [...prev.cartList, { ...newCartItem, cartAmount: 1 }],
-    }), () => {
-      saveLocalState(cartList);
-    });
+  saveCartListInLocalStorage = () => {
+    const { cartList } = this.state;
+    saveLocalState(cartList);
+  }
+
+  handleAddCartItemAmount = (productId, cartList) => {
+    const productIdsList = cartList.map(({ id }) => id);
+    const productInIdsList = productIdsList.indexOf(productId);
+    cartList.at(productInIdsList).cartAmount += 1;
+
+    this.setState({ cartList }, this.saveCartListInLocalStorage);
+  }
+
+  handleAddCartItem = (productId, cartList) => {
+    const { products } = this.state;
+    const newCartItem = products.find(({ id }) => id === productId);
+    cartList.push({ ...newCartItem, cartAmount: 1 });
+
+    this.setState({ cartList }, this.saveCartListInLocalStorage);
+  }
+
+  handleAddToCart = ({ target }) => {
+    const { cartList: prevCartList } = this.state;
+    const cartList = [...prevCartList];
+    const productId = target.getAttribute('data-productid');
+    const isInCart = cartList.some(({ id }) => id === productId);
+
+    if (isInCart) this.handleAddCartItemAmount(productId, cartList);
+    else this.handleAddCartItem(productId, cartList);
   }
 
   render() {
@@ -111,8 +122,8 @@ export default class Home extends Component {
           {render
             && <ProductsList
               products={ products }
-              cartButton={ this.addToCartButtonClick }
-              // cart={  }
+              cartButton={ this.handleAddToCart }
+              cart={ false }
             />}
         </div>
       </div>

@@ -27,7 +27,7 @@ export default class ProductsList extends Component {
               </div>) }
             <button
               type="button"
-              name={ product.id }
+              data-productid={ product.id }
               data-testid="product-add-to-cart"
               onClick={ (target) => cartButton(target) }
             >
