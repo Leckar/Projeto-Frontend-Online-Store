@@ -23,7 +23,7 @@ export default class Cart extends Component {
   handleSubCartItemAmount = (productId, cartList) => {
     const productIdsList = cartList.map(({ id }) => id);
     const productInIdsList = productIdsList.indexOf(productId);
-    cartList.at(productInIdsList).cartAmount -= 1;
+    cartList[productInIdsList].cartAmount -= 1;
 
     this.setState({ cartList }, this.saveCartListInLocalStorage);
   }
@@ -52,7 +52,7 @@ export default class Cart extends Component {
   handleAddCartItemAmount = (productId, cartList) => {
     const productIdsList = cartList.map(({ id }) => id);
     const productInIdsList = productIdsList.indexOf(productId);
-    cartList.at(productInIdsList).cartAmount += 1;
+    cartList[productInIdsList].cartAmount += 1;
 
     this.setState({ cartList }, this.saveCartListInLocalStorage);
   }
