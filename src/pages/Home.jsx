@@ -16,12 +16,14 @@ export default class Home extends Component {
     products: [],
     render: false,
     cartList: [],
+    storageKey: 'cart',
   };
 
   componentDidMount() {
     this.setState(async () => {
+      const { storageKey } = this.state;
       const categories = await getCategories();
-      const cartList = loadLocalState();
+      const cartList = loadLocalState(storageKey);
       // const products = loadSessionState();
       // if (products.length > 0) this.setState({ products });
       this.setState({ categories, cartList });
@@ -52,8 +54,8 @@ export default class Home extends Component {
   };
 
   saveCartListInLocalStorage = () => {
-    const { cartList } = this.state;
-    saveLocalState(cartList);
+    const { cartList, storageKey } = this.state;
+    saveLocalState(storageKey, cartList);
   }
 
   handleAddCartItemAmount = (productId, cartList) => {

@@ -1,16 +1,16 @@
-if (!JSON.parse(localStorage.getItem('state'))) {
-  localStorage.setItem('state', JSON.stringify([]));
+if (!JSON.parse(localStorage.getItem('cart'))) {
+  localStorage.setItem('cart', JSON.stringify([]));
 }
 
 if (!JSON.parse(sessionStorage.getItem('products'))) {
   sessionStorage.setItem('products', JSON.stringify([]));
 }
 
-const saveLocalState = (data) => {
-  localStorage.setItem('state', JSON.stringify(data));
+const saveLocalState = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
 };
 
-const loadLocalState = () => JSON.parse(localStorage.getItem('state'));
+const loadLocalState = (key) => JSON.parse(localStorage.getItem(key));
 
 const saveSessionState = (data) => {
   sessionStorage.setItem('products', JSON.stringify(data));

@@ -10,13 +10,13 @@ export default class Cart extends Component {
   }
 
   componentDidMount() {
-    const cartList = loadLocalState();
+    const cartList = loadLocalState('cart');
     this.setState({ cartList });
   }
 
   saveCartListInLocalStorage = () => {
     const { cartList } = this.state;
-    saveLocalState(cartList);
+    saveLocalState('cart', cartList);
   }
 
   handleSubCartItemAmount = (productId, cartList) => {
