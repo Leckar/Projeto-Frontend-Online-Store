@@ -15,6 +15,8 @@ export default class Home extends Component {
     storageKey: 'cart',
   };
 
+  // teste
+
   componentDidMount() {
     this.setState(async () => {
       const { storageKey } = this.state;
