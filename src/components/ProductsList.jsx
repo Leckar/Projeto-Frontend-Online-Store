@@ -5,7 +5,7 @@ import '../styles/ProductsList.css';
 
 export default class ProductsList extends Component {
   render() {
-    const { products, cartButton, cart } = this.props;
+    const { products, cartButton } = this.props;
 
     if (!products.length) return <h2>Nenhum produto foi encontrado</h2>;
 
@@ -19,19 +19,13 @@ export default class ProductsList extends Component {
             <ProductItem
               productDetails={ product }
             />
-            { cart && (
-              <div
-                data-testid="shopping-cart-product-quantity"
-              >
-                { product.cartAmount }
-              </div>) }
             <button
               type="button"
               data-productid={ product.id }
               data-testid="product-add-to-cart"
               onClick={ (target) => cartButton(target) }
             >
-              { cart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }
+              Adicionar ao Carrinho
             </button>
           </div>
         )) }
@@ -43,5 +37,4 @@ export default class ProductsList extends Component {
 ProductsList.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   cartButton: PropTypes.func.isRequired,
-  cart: PropTypes.bool.isRequired,
 };
