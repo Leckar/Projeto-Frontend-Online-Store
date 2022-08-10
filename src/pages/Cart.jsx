@@ -69,17 +69,27 @@ export default class Cart extends Component {
     const { cartList } = this.state;
     return (
       <div>
-
+        {/* <h1 className="mainTitle">Front-End Online Store</h1> */}
         { !cartList || !cartList.length ? (
           <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>
         ) : (
-          <CartList
-            cart
-            products={ cartList }
-            removeFromCart={ this.removeFromCart }
-            addOne={ this.handleAddToCart }
-            removeOne={ this.handleSubtractFromCart }
-          />
+          <div className="cartWrap">
+            <CartList
+              cart
+              products={ cartList }
+              removeFromCart={ this.removeFromCart }
+              addOne={ this.handleAddToCart }
+              removeOne={ this.handleSubtractFromCart }
+            />
+            <Link
+              to={ {
+                pathname: '/checkout',
+              } }
+              data-testid="checkout-products"
+            >
+              Finalizar compra
+            </Link>
+          </div>
         )}
         <Link
           to={ {
