@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 
 export default class Rating extends Component {
@@ -102,8 +102,8 @@ export default class Rating extends Component {
   }
 
   render() {
-    const { star,
-      rate, email, comentario, disbled } = this.state;
+    const { star, rate, email, comentario, disbled } = this.state;
+    const { productId } = this.props;
     return (
       <div>
         <h2>Avaliação</h2>
@@ -167,3 +167,7 @@ export default class Rating extends Component {
     );
   }
 }
+
+Rating.propTypes = {
+  productId: PropTypes.string.isRequired,
+};

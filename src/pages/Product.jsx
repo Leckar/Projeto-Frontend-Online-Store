@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getProductFromId } from '../services/api';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 import Rating from '../components/Rating';
-import '../styles/Product.css';
+// import '../styles/Product.css';
 
 export default class Product extends Component {
   state = {
@@ -91,7 +91,7 @@ export default class Product extends Component {
             Ir ao carrinho
           </button>
         </Link>
-        <Rating />
+        <Rating productId={ id } />
       </main>
     );
   }
