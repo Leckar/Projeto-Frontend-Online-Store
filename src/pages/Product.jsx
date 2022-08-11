@@ -92,7 +92,6 @@ export default class Product extends Component {
             Ir ao carrinho
           </button>
         </Link>
-        { console.log(id) }
         <RatingSection id={ productId } />
       </main>
     );

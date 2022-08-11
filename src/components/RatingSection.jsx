@@ -7,15 +7,14 @@ import StarRating from './StarRating';
 const reset = [false, false, false, false, false];
 
 export default class RatingSection extends Component {
-  state ={
+  state = {
     starArr: reset,
     clickedOn: false,
     email: '',
     comment: '',
     savedRatings: [],
     isInvalid: false,
-
-  }
+  };
 
   componentDidMount() {
     const { id } = this.props;
@@ -36,7 +35,7 @@ export default class RatingSection extends Component {
       temp[index - 1] = true;
       this.setState({ starArr: temp, clickedOn: true });
     });
-  }
+  };
 
   bttnSubmitHandler = () => {
     const { clickedOn, email } = this.state;
@@ -44,14 +43,14 @@ export default class RatingSection extends Component {
       return this.setState({ isInvalid: false }, () => this.saveRatingInStorage());
     }
     this.setState({ isInvalid: true });
-  }
+  };
 
-  validateEmail = (email) => (/\S+@\S+\.\S+/).test(email);
+  validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   commentOverwrite = (newEmail) => {
     const { savedRatings } = this.state;
     return savedRatings.filter(({ email }) => email !== newEmail);
-  }
+  };
 
   saveRatingInStorage = () => {
     const { email, comment, starArr } = this.state;
@@ -61,23 +60,32 @@ export default class RatingSection extends Component {
       starArr,
     };
     const savedRatings = [...this.commentOverwrite(email), rating];
-    this.setState({
-      savedRatings,
-      email: '',
-      comment: '',
-      starArr: reset,
-      clickedOn: false,
-      bttnIsDisabled: true,
-    }, () => {
-      const { savedRatings: newList } = this.state;
-      const { id } = this.props;
-      saveLocalState(id, newList);
-    });
-  }
+    this.setState(
+      {
+        savedRatings,
+        email: '',
+        comment: '',
+        starArr: reset,
+        clickedOn: false,
+        bttnIsDisabled: true,
+      },
+      () => {
+        const { savedRatings: newList } = this.state;
+        const { id } = this.props;
+        saveLocalState(id, newList);
+      },
+    );
+  };
 
   render() {
-    const { email, comment, bttnIsDisabled,
-      savedRatings, isInvalid, starArr } = this.state;
+    const {
+      email,
+      comment,
+      bttnIsDisabled,
+      savedRatings,
+      isInvalid,
+      starArr,
+    } = this.state;
     return (
       <div>
         <h2>Avaliação</h2>
@@ -91,14 +99,14 @@ export default class RatingSection extends Component {
             onChange={ this.onInputChange }
           />
           <ul className="avaliação">
-            { starArr.map((e, i) => (
+            {starArr.map((e, i) => (
               <StarRating
                 key={ i }
                 star={ e }
                 handler={ this.ratingOnClick }
                 id={ i + 1 }
               />
-            )) }
+            ))}
           </ul>
           <br />
           <textarea
@@ -119,14 +127,11 @@ export default class RatingSection extends Component {
             Avaliar
           </button>
         </form>
-        { isInvalid && (
-          <span data-testid="error-msg">Campos inválidos</span>
-        )}
+        {isInvalid && <span data-testid="error-msg">Campos inválidos</span>}
         <h2>Avaliações</h2>
-        { savedRatings.map((obj) => {
-          console.log(obj);
-          return <RatingList key={ obj.email } rating={ obj } />;
-        }) }
+        {savedRatings.map((obj) => (
+          <RatingList key={ obj.email } rating={ obj } />
+        ))}
       </div>
     );
   }
