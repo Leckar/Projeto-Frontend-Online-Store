@@ -81,6 +81,7 @@ export default class Cart extends Component {
               addOne={ this.handleAddToCart }
               removeOne={ this.handleSubtractFromCart }
             />
+            <h2 data-testid="shopping-cart-size">{ cartList.length }</h2>
             <Link
               to={ {
                 pathname: '/checkout',

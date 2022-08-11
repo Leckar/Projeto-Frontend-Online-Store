@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
+import CartIcon from '../components/CartIcon';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 
 export default class Home extends Component {
@@ -79,7 +80,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { categories, searchQuery, products, render } = this.state;
+    const { categories, searchQuery, products, render, cartList } = this.state;
     return (
       <div className="mainHome">
         <header>
@@ -100,9 +101,7 @@ export default class Home extends Component {
             <i className="fa fa-search" />
           </button>
           <Link to="/cart" data-testid="shopping-cart-button">
-            <button type="button">
-              <i className="fa fa-shopping-cart" />
-            </button>
+            <CartIcon cartListQuantity={ cartList.length } />
           </Link>
         </header>
         {!searchQuery.length && (
