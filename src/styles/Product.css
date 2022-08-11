@@ -40,29 +40,35 @@
     transform: rotate(360deg);
   }
 }
-.avaliação {
+.evaluation {
   display: flex;
+}
+
+.divDisabled {
+  pointer-events: none;
+  user-select: none;
 }
 
 .starIcon {
   font-size: 30px;
   list-style-type: none;
   cursor: pointer;
-  color: black;
+  color: yellow;
 }
 
 .starIcon::before {
   content: "\2605";
 }
 
-.starIcon.ativo ~ .starIcon::before {
+.starIcon.active ~ .starIcon::before {
   content: "\2606";
 }
 
-.avaliação:hover .starIcon::before {
+.evaluation:hover .starIcon::before {
   content: "\2605";
 }
 
 .starIcon:hover ~ .starIcon::before {
   content: "\2606";
 }
+

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductFromId } from '../services/api';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
-import Rating from '../components/Rating';
-// import '../styles/Product.css';
+import RatingSection from '../components/RatingSection';
+import '../styles/Product.css';
 
 export default class Product extends Component {
   state = {
@@ -59,11 +59,12 @@ export default class Product extends Component {
   render() {
     const { productDetail } = this.state;
     const { title, price, thumbnail, id } = productDetail;
+    const { match: { params: { id: productId } } } = this.props;
 
     return (
       <main>
         <div data-testid="product">
-          <h1 className="mainTitle">Front-End Online Store</h1>
+          {/* <h1 className="mainTitle">Front-End Online Store</h1> */}
           <figure>
             <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
           </figure>
@@ -91,7 +92,8 @@ export default class Product extends Component {
             Ir ao carrinho
           </button>
         </Link>
-        <Rating productId={ id } />
+        { console.log(id) }
+        <RatingSection id={ productId } />
       </main>
     );
   }
