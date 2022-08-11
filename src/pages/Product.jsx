@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductFromId } from '../services/api';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
+import RatingSection from '../components/RatingSection';
+import '../styles/Product.css';
 
 export default class Product extends Component {
   state = {
@@ -57,6 +59,7 @@ export default class Product extends Component {
   render() {
     const { productDetail } = this.state;
     const { title, price, thumbnail, id } = productDetail;
+    const { match: { params: { id: productId } } } = this.props;
 
     return (
       <main>
@@ -89,6 +92,7 @@ export default class Product extends Component {
             Ir ao carrinho
           </button>
         </Link>
+        <RatingSection id={ productId } />
       </main>
     );
   }
