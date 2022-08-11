@@ -56,6 +56,11 @@ export default class Product extends Component {
     else this.handleAddCartItem(cartList);
   }
 
+  getTotalQuantity = () => {
+    const { cartList } = this.state;
+    return cartList.reduce((total, item) => total + item.cartAmount, 0);
+  }
+
   render() {
     const { productDetail } = this.state;
     const { title, price, thumbnail, id } = productDetail;
@@ -85,6 +90,11 @@ export default class Product extends Component {
           </button>
         </div>
         <Link to="/cart">
+          <span className="fa fa-shopping-cart" data-testid="shopping-cart-size">
+            {
+              this.getTotalQuantity()
+            }
+          </span>
           <button
             type="button"
             data-testid="shopping-cart-button"

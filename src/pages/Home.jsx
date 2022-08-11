@@ -4,6 +4,7 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
+import CartIcon from '../components/CartIcon';
 
 export default class Home extends Component {
   state = {
@@ -78,8 +79,14 @@ export default class Home extends Component {
     else this.handleAddCartItem(productId, cartList);
   }
 
+  // getTotalQuantity = () => {
+  //   const { cartList } = this.state;
+  //   return cartList.reduce((total, item) => total + item.cartAmount, 0);
+  // }
+
   render() {
-    const { categories, searchQuery, products, render } = this.state;
+    const { categories, searchQuery, products, render, cartList } = this.state;
+
     return (
       <div className="mainHome">
         <header>
@@ -100,9 +107,14 @@ export default class Home extends Component {
             <i className="fa fa-search" />
           </button>
           <Link to="/cart" data-testid="shopping-cart-button">
+            <CartIcon cartListQuantity={ cartList.length } />
+            {
+              /*
+              console.log(this.getTotalQuantity())
             <button type="button">
               <i className="fa fa-shopping-cart" />
             </button>
+            */}
           </Link>
         </header>
         {!searchQuery.length && (
