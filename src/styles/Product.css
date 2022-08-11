@@ -40,6 +40,7 @@
     transform: rotate(360deg);
   }
 }
+
 .evaluation {
   display: flex;
 }
@@ -50,25 +51,25 @@
 }
 
 .starIcon {
+  color: yellow;
+  cursor: pointer;
   font-size: 30px;
   list-style-type: none;
-  cursor: pointer;
-  color: yellow;
 }
 
-.starIcon::before {
-  content: "\2605";
+.starIcon:before {
+  content: '\2605';
 }
 
-.starIcon.active ~ .starIcon::before {
-  content: "\2606";
+.starIcon.active ~ .starIcon:before {
+  content: '\2606';
 }
 
-.evaluation:hover .starIcon::before {
-  content: "\2605";
+.evaluation:hover .starIcon:before {
+  content: '\2605';
 }
 
-.starIcon:hover ~ .starIcon::before {
-  content: "\2606";
+.starIcon:hover ~ .starIcon:before {
+  content: '\2606';
 }
 
