@@ -5,7 +5,6 @@ import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
 import CartIcon from '../components/CartIcon';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
-import CartIcon from '../components/CartIcon';
 
 export default class Home extends Component {
   state = {
