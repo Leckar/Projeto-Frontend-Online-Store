@@ -5,6 +5,7 @@ import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
 import CartIcon from '../components/CartIcon';
 import { saveLocalState, loadLocalState } from '../services/StorageHandler';
+import CartIcon from '../components/CartIcon';
 
 export default class Home extends Component {
   state = {
@@ -79,8 +80,14 @@ export default class Home extends Component {
     else this.handleAddCartItem(productId, cartList);
   }
 
+  // getTotalQuantity = () => {
+  //   const { cartList } = this.state;
+  //   return cartList.reduce((total, item) => total + item.cartAmount, 0);
+  // }
+
   render() {
     const { categories, searchQuery, products, render, cartList } = this.state;
+
     return (
       <div className="mainHome">
         <header>
