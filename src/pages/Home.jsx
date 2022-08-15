@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductsList from '../components/ProductsList';
-import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 import CartIcon from '../components/CartIcon';
+import { saveLocalState, loadLocalState } from '../services/StorageHandler';
 
 export default class Home extends Component {
   state = {
@@ -56,7 +56,7 @@ export default class Home extends Component {
   handleAddCartItemAmount = (productId, cartList) => {
     const productIdsList = cartList.map(({ id }) => id);
     const productInIdsList = productIdsList.indexOf(productId);
-    cartList.at(productInIdsList).cartAmount += 1;
+    cartList[productInIdsList].cartAmount += 1;
 
     this.setState({ cartList }, this.saveCartListInLocalStorage);
   }
@@ -108,13 +108,6 @@ export default class Home extends Component {
           </button>
           <Link to="/cart" data-testid="shopping-cart-button">
             <CartIcon cartListQuantity={ cartList.length } />
-            {
-              /*
-              console.log(this.getTotalQuantity())
-            <button type="button">
-              <i className="fa fa-shopping-cart" />
-            </button>
-            */}
           </Link>
         </header>
         {!searchQuery.length && (
