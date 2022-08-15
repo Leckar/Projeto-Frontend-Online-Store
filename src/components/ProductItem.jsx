@@ -11,6 +11,7 @@ export default class ProductItem extends Component {
         title,
         price,
         thumbnail,
+        shipping: { free_shipping: freeShipping },
       },
     } = this.props;
 
@@ -32,6 +33,12 @@ export default class ProductItem extends Component {
             <span>R$</span>
             <span>{price}</span>
           </div>
+          { freeShipping && (
+            <span
+              data-testid="free-shipping"
+            >
+              Frete Grátis
+            </span>) }
         </div>
       </Link>
     );
@@ -39,5 +46,13 @@ export default class ProductItem extends Component {
 }
 
 ProductItem.propTypes = {
-  productDetails: PropTypes.shape().isRequired,
+  productDetails: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool.isRequired,
+    }).isRequired,
+  }).isRequired,
 };

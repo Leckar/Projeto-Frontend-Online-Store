@@ -8,7 +8,7 @@ export default class ProductsList extends Component {
     const { products, cartButton } = this.props;
 
     if (!products.length) return <h2>Nenhum produto foi encontrado</h2>;
-
+    console.log(products);
     return (
       <div className="productsList">
         { products.map((product) => (
@@ -35,6 +35,12 @@ export default class ProductsList extends Component {
 }
 
 ProductsList.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+  })),
   cartButton: PropTypes.func.isRequired,
+};
+
+ProductsList.defaultProps = {
+  products: [],
 };
