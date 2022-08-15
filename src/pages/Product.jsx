@@ -11,6 +11,7 @@ export default class Product extends Component {
     productDetail: {},
     storageKey: 'cart',
     cartList: [],
+    freeShipping: false,
   }
 
   componentDidMount() {
@@ -23,7 +24,11 @@ export default class Product extends Component {
   loadProductInfo = async () => {
     const { match: { params: { id } } } = this.props;
     const productDetail = await getProductFromId(id);
-    this.setState({ productDetail });
+    this.setState({ productDetail }, () => {
+      const { productDetail: product } = this.state;
+      const { shipping: { free_shipping: freeShipping } } = product;
+      this.setState({ freeShipping });
+    });
   };
 
   saveCartListInLocalStorage = () => {
@@ -62,9 +67,10 @@ export default class Product extends Component {
   }
 
   render() {
-    const { productDetail } = this.state;
+    const { productDetail, freeShipping } = this.state;
     const { title, price, thumbnail, id } = productDetail;
     const { match: { params: { id: productId } } } = this.props;
+    console.log(productDetail);
 
     return (
       <main>
@@ -80,6 +86,12 @@ export default class Product extends Component {
             <span>R$</span>
             <span data-testid="product-detail-price">{price}</span>
           </div>
+          { freeShipping && (
+            <span
+              data-testid="free-shipping"
+            >
+              Frete Grátis
+            </span>) }
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
