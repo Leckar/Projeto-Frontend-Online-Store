@@ -8,5 +8,5 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
- Projeto feito em grupo com os colegas Bruno de Oliveira Silva (Github user brunooliveira1993), Caio César Pereira (Github user caiocsper) e
+ Projeto feito em grupo com os colegas de curso Bruno de Oliveira Silva (Github user brunooliveira1993), Caio César Pereira (Github user caiocsper) e
 Franklin Willian Santos da Silva (Github user WillSs-Dev).
